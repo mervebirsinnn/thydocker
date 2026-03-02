@@ -1,0 +1,40 @@
+services:
+  # 1. Redis Servisi (Yeni eklendi)
+  redis:
+    image: redis:alpine
+    container_name: thy-redis
+    ports:
+      - "6380:6379"
+    networks:
+      - thy-network
+    restart: always
+
+  backend-app:
+    build: ./thy
+    container_name: thy-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb
+      - SPRING_PROFILES_ACTIVE=dev
+      # ÖNEMLİ: Backend'e Redis'in yerini söylüyoruz
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - thy-network
+
+  frontend-app:
+    build: ./thy-frontend
+    container_name: thy-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend-app
+    networks:
+      - thy-network
+
+networks:
+  thy-network:
+    driver: bridge

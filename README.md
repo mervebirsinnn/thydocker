@@ -22,7 +22,7 @@ Uygulama; hava ve kara yolu ulaşım araçlarını kullanarak, belirli kurallar 
 
 ### Frontend
 - **React & Vite**
-- **Tailwind CSS** (Modern UI tasarımı)
+- **Ant design** (Modern UI tasarımı)
 - **Axios** (API iletişimi)
 - **Nginx** (Production-ready serving & Reverse Proxy)
 
